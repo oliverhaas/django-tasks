@@ -236,6 +236,7 @@ A few [Signals](https://docs.djangoproject.com/en/stable/topics/signals/) are pr
 Whilst signals are available, they may not be the most maintainable approach.
 
 - `django_tasks.signals.task_enqueued`: Called when a task is enqueued. The sender is the backend class. Also called with the enqueued `task_result`.
+- `django_tasks.signals.task_starting`: Called right before a task is started. The sender is the backend class. Also called with the enqueued `task_result`.
 - `django_tasks.signals.task_finished`: Called when a task finishes (`SUCCEEDED` or `FAILED`). The sender is the backend class. Also called with the finished `task_result`.
 
 ## Contributing
