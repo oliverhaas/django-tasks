@@ -18,7 +18,7 @@ from django_tasks.backends.database.backend import DatabaseBackend
 from django_tasks.backends.database.models import DBTaskResult
 from django_tasks.backends.database.utils import exclusive_transaction
 from django_tasks.exceptions import InvalidTaskBackendError
-from django_tasks.signals import task_finished, task_started
+from django_tasks.signals import task_finished, task_starting
 from django_tasks.task import DEFAULT_QUEUE_NAME
 
 package_logger = logging.getLogger("django_tasks")
@@ -130,7 +130,7 @@ class Worker:
             task = db_task_result.task
             task_result = db_task_result.task_result
 
-            task_started.send(
+            task_starting.send(
                 sender=type(task.get_backend()), task_result=db_task_result.task_result
             )
             return_value = task.call(*task_result.args, **task_result.kwargs)

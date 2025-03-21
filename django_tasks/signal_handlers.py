@@ -6,7 +6,7 @@ from django.dispatch import receiver
 
 from django_tasks import BaseTaskBackend, ResultStatus, TaskResult
 
-from .signals import task_enqueued, task_finished, task_started
+from .signals import task_enqueued, task_finished, task_starting
 
 logger = logging.getLogger("django_tasks")
 
@@ -34,8 +34,8 @@ def log_task_enqueued(
         task_result.backend,
     )
 
-@receiver(task_started)
-def log_task_started(
+@receiver(task_starting)
+def log_task_starting(
     sender: type[BaseTaskBackend], task_result: TaskResult, **kwargs: dict
 ) -> None:
     logger.info(
